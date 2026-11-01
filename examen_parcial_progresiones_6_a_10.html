@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Examen Parcial - Progresiones 6 a 10 | La Energía en la Vida Diaria</title>
+  <style>
+    :root {
+      --bg-dark: #080c14;
+      --bg-card: #111827;
+      --bg-card-hover: #1f2937;
+      --border-color: #1f293d;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.25);
+      --accent-purple: #8b5cf6;
+      --accent-purple-glow: rgba(139, 92, 246, 0.25);
+      --accent-amber: #f59e0b;
+      --accent-amber-glow: rgba(245, 158, 11, 0.2);
+      --success: #10b981;
+      --success-bg: rgba(16, 185, 129, 0.15);
+      --danger: #ef4444;
+      --danger-bg: rgba(239, 68, 68, 0.15);
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-stack);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px;
+      overflow-x: hidden;
+    }
+
+    #app-container {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Fixed Sticky Top Navigation & Progress Bar */
+    .top-bar {
+      position: sticky;
+      top: 8px;
+      z-index: 100;
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    .top-bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .user-tag {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 220px;
+    }
+
+    .counter-badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 8px;
+      background-color: #090d16;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+      transition: width 0.3s ease;
+    }
+
+    /* Standard Cards */
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card-header-badge {
+      align-self: flex-start;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid var(--accent-cyan-glow);
+    }
+
+    h1 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.25;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    strong {
+      color: var(--text-main);
+    }
+
+    /* Form Inputs & Buttons */
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+    }
+
+    .input-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .input-control {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border-color);
+      background-color: #090d16;
+      color: var(--text-main);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .input-control:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 3px var(--accent-cyan-glow);
+    }
+
+    .btn {
+      width: 100%;
+      min-height: 50px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: none;
+      font-size: 0.98rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      user-select: none;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-cyan), #0284c7);
+      color: #ffffff;
+      box-shadow: 0 4px 14px var(--accent-cyan-glow);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      background-color: #1f293d;
+      color: var(--text-main);
+      border: 1.5px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-card-hover);
+      border-color: var(--accent-cyan);
+    }
+
+    .btn-disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Options Stack */
+    .options-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border-color);
+      background-color: #090d16;
+      color: var(--text-main);
+      font-size: 0.92rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s ease;
+      line-height: 1.4;
+    }
+
+    .option-btn:hover:not(.btn-disabled) {
+      border-color: var(--accent-cyan);
+      background-color: var(--bg-card-hover);
+    }
+
+    .option-btn.selected {
+      border-color: var(--accent-cyan);
+      background-color: rgba(6, 182, 212, 0.15);
+      box-shadow: 0 0 0 1px var(--accent-cyan);
+    }
+
+    .option-letter {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background-color: var(--border-color);
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .option-btn.selected .option-letter {
+      background-color: var(--accent-cyan);
+      color: #000;
+    }
+
+    /* Quiz Navigator Grid (1..30) */
+    .quiz-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 6px;
+      margin: 4px 0;
+    }
+
+    .quiz-nav-btn {
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background-color: #090d16;
+      color: var(--text-muted);
+      font-weight: 800;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .quiz-nav-btn.active {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      box-shadow: 0 0 0 2px var(--accent-cyan-glow);
+    }
+
+    .quiz-nav-btn.answered {
+      background-color: #1e293d;
+      color: #fff;
+      border-color: var(--accent-purple);
+    }
+
+    /* Visual Diagram Box */
+    .sim-canvas-box {
+      width: 100%;
+      min-height: 140px;
+      background-color: #050810;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 10px;
+    }
+
+    /* Evidence Screenshot Card */
+    .evidence-card {
+      background: linear-gradient(180deg, #111827 0%, #080c14 100%);
+      border: 2px solid var(--accent-cyan);
+      border-radius: 20px;
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: 0 0 35px rgba(6, 182, 212, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .score-large {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badge-perf {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      align-self: center;
+    }
+
+    .badge-exc { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
+    .badge-good { background: rgba(6, 182, 212, 0.2); color: #38bdf8; border: 1px solid #06b6d4; }
+    .badge-proc { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+    .badge-reinf { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444; }
+
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .summary-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .summary-table td:nth-child(2) {
+      text-align: right;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .progression-bars-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background-color: #090d16;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+
+    .prog-bar-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.82rem;
+    }
+
+    .prog-bar-track {
+      flex: 1;
+      height: 8px;
+      background: #1f293d;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .prog-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    }
+
+    .camera-notice {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(239, 68, 68, 0.2));
+      border: 1.5px dashed var(--accent-amber);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #fef08a;
+    }
+
+    /* Custom Modal Overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-box {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-color);
+      border-radius: 18px;
+      padding: 20px;
+      max-width: 420px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app-container">
+    <!-- Top Bar (Sticky navigation during active exam) -->
+    <div id="top-bar" class="top-bar" style="display: none;">
+      <div class="top-bar-header">
+        <span id="user-display-tag" class="user-tag">Estudiante</span>
+        <span id="counter-display-badge" class="counter-badge">PREGUNTA 1 DE 30</span>
+      </div>
+      <div class="progress-bar-track">
+        <div id="progress-bar-fill" class="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- Main Dynamic Root Container -->
+    <main id="app-content"></main>
+  </div>
+
+  <script>
+    // --- MASTER EXAM BANK FOR PROGRESIONES 6, 7, 8, 9 & 10 (EXACTLY 30 ITEMS) ---
+    // Balanced items: P6=6, P7=6, P8=6, P9=6, P10=6.
+    // Shuffled sequence order across progressions to provide a varied exam experience.
+    const MASTER_QUESTIONS = [
+      // 1 (P6 - Basic)
+      {
+        id: 1,
+        progression: 6,
+        difficulty: "Básico",
+        stem: "¿Cómo se organiza la radiación electromagnética en el espectro en orden creciente de frecuencia (de menor a mayor energía)?",
+        options: [
+          "Ondas de radio → Microondas → Infrarrojo → Luz visible → Ultravioleta → Rayos X → Rayos Gamma.",
+          "Rayos Gamma → Rayos X → Ultravioleta → Luz visible → Infrarrojo → Microondas → Radio.",
+          "Luz visible → Radio → Microondas → Infrarrojo → Rayos X → Rayos Gamma.",
+          "Microondas → Infrarrojo → Radio → Ultravioleta → Luz visible → Rayos X."
+        ],
+        correct: 0,
+        explanation: "Las ondas de radio poseen la mayor longitud de onda y menor frecuencia. Conforme aumenta la frecuencia, pasamos a microondas, infrarrojo, luz visible, ultravioleta, rayos X y finalmente los altamente energéticos rayos gamma."
+      },
+      // 2 (P7 - Medium - Visual)
+      {
+        id: 2,
+        progression: 7,
+        difficulty: "Medio",
+        svg: `<svg viewBox="0 0 320 90" style="width:100%; max-height:100px;"><circle cx="70" cy="45" r="22" fill="#ef4444"/><text x="70" y="51" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">+</text><circle cx="250" cy="45" r="22" fill="#ef4444"/><text x="250" y="51" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">+</text><line x1="42" y1="45" x2="15" y2="45" stroke="#ef4444" stroke-width="3"/><polygon points="15,45 23,40 23,50" fill="#ef4444"/><line x1="278" y1="45" x2="305" y2="45" stroke="#ef4444" stroke-width="3"/><polygon points="305,45 297,40 297,50" fill="#ef4444"/><text x="160" y="80" fill="#94a3b8" font-size="10" font-weight="bold" text-anchor="middle">Interacción entre dos cargas q₁ (+) y q₂ (+)</text></svg>`,
+        stem: "En el diagrama superior, dos cargas puntuales del mismo signo (+ y +) están separadas una distancia $r$. Según la Ley de Coulomb, ¿cuál es la naturaleza de las fuerzas ejercidas entre sí?",
+        options: [
+          "Son fuerzas de atracción dirigidas hacia el centro.",
+          "Son fuerzas de repulsión dirigidas hacia afuera en la misma línea de acción.",
+          "Es una fuerza gravitatoria atractiva que cancela la carga.",
+          "No existe ninguna fuerza porque ambas cargas son idénticas."
+        ],
+        correct: 1,
+        explanation: "Cargas eléctricas del mismo signo (positivas con positivas, o negativas con negativas) se repelen mutuamente con fuerzas de igual magnitud y sentidos opuestos."
+      },
+      // 3 (P8 - Basic)
+      {
+        id: 3,
+        progression: 8,
+        difficulty: "Básico",
+        stem: "¿Qué establece formalmente el principio universal de conservación de la energía en campos y sistemas físicos?",
+        options: [
+          "Que la energía se destruye progresivamente a medida que los objetos se frenan por fricción.",
+          "Que la energía no se crea ni se destruye; únicamente se transfiere o transforma entre objetos, campos y sistemas.",
+          "Que la cantidad total de energía de un sistema abierto siempre se triplica.",
+          "Que los campos eléctricos generan energía infinita sin consumir fuentes externas."
+        ],
+        correct: 1,
+        explanation: "La ley de conservación de la energía postula que la energía total del universo permanece constante; sólo puede transferirse o cambiar de forma (ej. potencial en campo a cinética)."
+      },
+      // 4 (P9 - Medium)
+      {
+        id: 4,
+        progression: 9,
+        difficulty: "Medio",
+        stem: "¿Por qué al cortar un imán de barra exactamente por la mitad resulta imposible aislar un único polo magnético (monopolo)?",
+        options: [
+          "Porque el calor generado en el corte destruye la carga eléctrica del imán.",
+          "Porque los dominios magnéticos atómicos actúan como dipolos individuales, creando un nuevo polo Norte y Sur en cada pedazo.",
+          "Porque los imanes están hechos de plomo neutro que se convierte en batería.",
+          "Porque la fuerza de gravedad impide la separación de los polos."
+        ],
+        correct: 1,
+        explanation: "A diferencia de las cargas eléctricas (donde existen monopolos + y - independientes), los imanes siempre existen en pares de polos (dipolos N-S) debido a la orientación de sus dominios atómicos."
+      },
+      // 5 (P10 - Medium - Visual)
+      {
+        id: 5,
+        progression: 10,
+        difficulty: "Medio",
+        svg: `<svg viewBox="0 0 320 100" style="width:100%; max-height:100px;"><line x1="160" y1="90" x2="160" y2="15" stroke="#f59e0b" stroke-width="6"/><polygon points="160,10 152,24 168,24" fill="#f59e0b"/><text x="180" y="22" fill="#f59e0b" font-size="10" font-weight="bold">Corriente I (↑)</text><ellipse cx="160" cy="55" rx="55" ry="18" fill="none" stroke="#06b6d4" stroke-width="2.5"/><polygon points="215,55 207,48 207,62" fill="#06b6d4"/><polygon points="105,55 113,48 113,62" fill="#06b6d4"/><text x="160" y="94" fill="#38bdf8" font-size="9" text-anchor="middle">Regla de la Mano Derecha: Sentido Antihorario (visto desde arriba)</text></svg>`,
+        stem: "Según la Regla de la Mano Derecha ilustrada para un alambre recto donde la corriente fluye hacia arriba (↑), ¿qué representan respectivamente el pulgar y los dedos curvados?",
+        options: [
+          "Pulgar = Voltaje de la batería; Dedos curvados = Resistencia térmica.",
+          "Pulgar = Dirección de la corriente ($I$); Dedos curvados = Sentido circular de las líneas del campo magnético ($B$).",
+          "Pulgar = Fuerza de gravedad; Dedos curvados = Velocidad de los fotones.",
+          "Pulgar = Campo magnético ($B$); Dedos curvados = Masa del alambre."
+        ],
+        correct: 1,
+        explanation: "Alineando el pulgar de la mano derecha en la dirección de la corriente eléctrica, los dedos doblados indican la rotación circular de las líneas de inducción magnética alrededor del conductor."
+      },
+      // 6 (P6 - Medium - Visual)
+      {
+        id: 6,
+        progression: 6,
+        difficulty: "Medio",
+        svg: `<svg viewBox="0 0 320 90" style="width:100%; max-height:100px;"><polygon points="130,15 200,80 60,80" fill="none" stroke="#06b6d4" stroke-width="2"/><line x1="10" y1="55" x2="95" y2="55" stroke="#ffffff" stroke-width="3"/><path d="M 95 55 L 140 50 L 200 25" stroke="#ef4444" stroke-width="2"/><path d="M 95 55 L 142 55 L 200 50" stroke="#f59e0b" stroke-width="2"/><path d="M 95 55 L 145 60 L 200 75" stroke="#8b5cf6" stroke-width="2"/><text x="240" y="28" fill="#ef4444" font-size="9" font-weight="bold">Roja (Menor f)</text><text x="240" y="78" fill="#8b5cf6" font-size="9" font-weight="bold">Violeta (Mayor f)</text></svg>`,
+        stem: "¿Qué fenómeno óptico ocurre cuando la luz blanca atraviesa un prisma de vidrio y se separa en los colores del arcoíris debido a que cada longitud de onda viaja a distinta velocidad?",
+        options: [
+          "Reflexión especular en espejo plano.",
+          "Dispersión cromática derivada de la refracción de la luz.",
+          "Absorción fotoeléctrica total.",
+          "Efecto Doppler gravitacional."
+        ],
+        correct: 1,
+        explanation: "La dispersión ocurre porque el índice de refracción del vidrio varía según la longitud de onda: la luz violeta (mayor frecuencia) se desvía más que la luz roja (menor frecuencia)."
+      },
+      // 7 (P7 - Basic)
+      {
+        id: 7,
+        progression: 7,
+        difficulty: "Básico",
+        stem: "Si la distancia entre dos cuerpos masivos se reduce a la tercera parte ($r / 3$), ¿qué ocurre con la magnitud de la fuerza de atracción gravitatoria según la Ley de Newton?",
+        options: [
+          "Se reduce a la tercera parte ($F / 3$).",
+          "Se multiplica por 9 ($9F$), debido a la ley del inverso del cuadrado ($1/r^2$).",
+          "Permanece exactamente igual.",
+          "Se duplica únicamente ($2F$)."
+        ],
+        correct: 1,
+        explanation: "Por la ley del inverso del cuadrado, al dividir la distancia entre 3, el denominador pasa a ser $(1/3)^2 = 1/9$, lo que multiplica la fuerza resultante por 9."
+      },
+      // 8 (P8 - Medium - Visual)
+      {
+        id: 8,
+        progression: 8,
+        difficulty: "Medio",
+        svg: `<svg viewBox="0 0 320 90" style="width:100%; max-height:100px;"><rect x="40" y="15" width="14" height="70" fill="#ef4444" rx="2"/><rect x="260" y="15" width="14" height="70" fill="#3b82f6" rx="2"/><line x1="54" y1="25" x2="260" y2="25" stroke="#06b6d4" stroke-width="2.5"/><polygon points="160,25 150,20 150,30" fill="#06b6d4"/><line x1="54" y1="50" x2="260" y2="50" stroke="#06b6d4" stroke-width="2.5"/><polygon points="160,50 150,45 150,55" fill="#06b6d4"/><line x1="54" y1="75" x2="260" y2="75" stroke="#06b6d4" stroke-width="2.5"/><polygon points="160,75 150,70 150,80" fill="#06b6d4"/><text x="160" y="93" fill="#38bdf8" font-size="9" text-anchor="middle">Alta densidad de líneas = Alta intensidad de energía acumulada</text></svg>`,
+        stem: "En la representación de un capacitor de placas paralelas, ¿qué relación existe entre la DENSIDAD (concentración) de las líneas de campo eléctrico en una región y la energía almacenada?",
+        options: [
+          "A mayor densidad de líneas, menor es la intensidad del campo y menor es la energía.",
+          "A mayor densidad de líneas por unidad de área, más intenso es el campo y mayor es la energía almacenada en esa región.",
+          "La densidad de líneas indica únicamente la velocidad del viento entre las placas.",
+          "Las líneas de campo cancelan la energía potencial reduciéndola a cero."
+        ],
+        correct: 1,
+        explanation: "En los modelos de campos, la concentración o densidad de líneas de fuerza es directamente proporcional a la intensidad del campo y a la densidad de energía acumulada."
+      },
+      // 9 (P9 - Basic)
+      {
+        id: 9,
+        progression: 9,
+        difficulty: "Básico",
+        stem: "¿Qué fue lo que demostró el experimento histórico realizado por Hans Christian Oersted al colocar una brújula cerca de un alambre conductor?",
+        options: [
+          "Que las baterías pierden su masa cuando se calientan.",
+          "Que las cargas eléctricas en movimiento (corriente) generan un campo magnético a su alrededor.",
+          "Que el vidrio es un conductor de magnetismo permanente.",
+          "Que la gravedad se apaga al cerrar un circuito."
+        ],
+        correct: 1,
+        explanation: "Oersted descubrió en 1820 la unificación electromagnética: una corriente eléctrica produce un campo magnético capaz de desviar la aguja imantada de una brújula."
+      },
+      // 10 (P10 - Advanced)
+      {
+        id: 10,
+        progression: 10,
+        difficulty: "Avanzado",
+        stem: "¿Qué ocurre entre dos conductores rectos y paralelos cuando transportan corrientes eléctricas fluyendo en SENTIDOS OPUESTOS ($\u2191 \u2193$)?",
+        options: [
+          "Experimentan una fuerza magnética de ATRACCIÓN mutua.",
+          "Experimentan una fuerza magnética de REPULSIÓN mutua que tiende a separarlos.",
+          "No ejercen ninguna fuerza por ser metálicos.",
+          "Se neutralizan destruyendo su carga eléctrica."
+        ],
+        correct: 1,
+        explanation: "Corrientes paralelas en sentidos contrarios ($\u2191 \u2193$) generan campos magnéticos cruzados que ejercen una fuerza de repulsión mutua (a diferencia de corrientes en el mismo sentido que se atraen)."
+      },
+      // 11 (P6 - Advanced)
+      {
+        id: 11,
+        progression: 6,
+        difficulty: "Avanzado",
+        stem: "¿Por qué las ondas de radio y Wi-Fi se clasifican como 'radiación no ionizante', mientras que los Rayos X y Gamma son 'radiación ionizante' peligrosa?",
+        options: [
+          "Porque las ondas de radio viajan más rápido que la velocidad de la luz.",
+          "Porque los fotones de radio poseen tan baja frecuencia que no tienen energía para arrancar electrones de los átomos, mientras que los fotones de Rayos X/Gamma ionizan y rompen enlaces de ADN.",
+          "Porque los Rayos X están compuestos por protones pesados de plomo.",
+          "Porque las ondas Wi-Fi requieren aire fresco para transportarse."
+        ],
+        correct: 1,
+        explanation: "La energía de un fotón depende de su frecuencia ($E = h f$). Las frecuencias bajas (radio/Wi-Fi) no pueden alterar los átomos, mientras que las frecuencias altas (X/Gamma) tienen suficiente energía para ionizar y dañar tejidos."
+      },
+      // 12 (P7 - Medium)
+      {
+        id: 12,
+        progression: 7,
+        difficulty: "Medio",
+        stem: "¿Cuál es la diferencia fundamental entre la MASA de un cuerpo y su PESO?",
+        options: [
+          "La masa es una fuerza en Newtons y el peso es la cantidad de materia en kilogramos.",
+          "La masa es la cantidad intrínseca de materia (en kg) e invariable, mientras que el peso es la fuerza gravitatoria ($P = m \cdot g$, en N) y depende de la gravedad local.",
+          "Masa y peso son sinónimos idénticos que cambian por igual en la Luna.",
+          "El peso nunca puede calcularse si el objeto flota en el agua."
+        ],
+        correct: 1,
+        explanation: "La masa ($m$) mide la inercia/materia en kg y es la misma en cualquier lugar. El peso ($P = m \cdot g$) es la fuerza gravitatoria con que un astro la atrae y varía según la gravedad local $g$."
+      },
+      // 13 (P8 - Advanced)
+      {
+        id: 13,
+        progression: 8,
+        difficulty: "Avanzado",
+        stem: "En el funcionamiento de un motor eléctrico, ¿cómo se describe la cadena de transferencia y transformación de la energía?",
+        options: [
+          "Energía Térmica → Energía Química de la madera → Gravedad.",
+          "Energía Eléctrica de la fuente → Almacenamiento temporal en Campo Magnético → Energía Cinética Mecánica de rotación en el eje.",
+          "Energía Nuclear → Destrucción del campo → Radiación infrarroja pura.",
+          "Energía Potencial Gravitatoria → Carga electrostática estática."
+        ],
+        correct: 1,
+        explanation: "El motor eléctrico convierte la corriente en campos magnéticos cambiantes dentro de las bobinas; las fuerzas magnéticas resultantes hacen girar el rotor transformando la energía de campo en trabajo mecánico."
+      },
+      // 14 (P9 - Basic)
+      {
+        id: 14,
+        progression: 9,
+        difficulty: "Básico",
+        stem: "Coloquialmente y en la representación vectorial de líneas de fuerza, ¿de dónde parten y a dónde llegan las líneas del campo eléctrico?",
+        options: [
+          "Parten de las cargas positivas (fuentes) y entran en las cargas negativas (sumideros).",
+          "Parten de las cargas negativas y terminan en las cargas positivas.",
+          "Forman círculos cerrados que jamás tocan ninguna carga.",
+          "Salen únicamente del centro de la Tierra hacia el espacio."
+        ],
+        correct: 0,
+        explanation: "Por convención física, las líneas de campo eléctrico emergen radialmente de cargas positivas (fuentes) y convergen hacia cargas negativas (sumideros)."
+      },
+      // 15 (P10 - Basic)
+      {
+        id: 15,
+        progression: 10,
+        difficulty: "Básico",
+        stem: "Al invertir la polaridad de una batería en un circuito con un alambre recto (cambiar el sentido de la corriente de ↑ a ↓), ¿qué le ocurre al campo magnético generado?",
+        options: [
+          "Permanecerá exactamente con la misma dirección y sentido.",
+          "El campo magnético invierte su sentido de rotación alrededor del conductor.",
+          "El campo magnético se cancela permanentemente para siempre.",
+          "La corriente se transforma en fuerza gravitatoria pura."
+        ],
+        correct: 1,
+        explanation: "La dirección de las líneas de inducción magnética depende del sentido de la corriente. Si inviertes la corriente, el sentido de rotación del campo magnético también se invierte."
+      },
+      // 16 (P6 - Medium)
+      {
+        id: 16,
+        progression: 6,
+        difficulty: "Medio",
+        stem: "En la explicación del Efecto Fotoeléctrico propuesta por Albert Einstein, ¿de qué depende la energía ($E$) de cada paquete individual o cuanto de luz (fotón)?",
+        options: [
+          "De la masa del metal expresada en kilogramos.",
+          "De la frecuencia de la radiación ($E = h \cdot f$, donde $h$ es la constante de Planck).",
+          "Del grosor del cable de plomo.",
+          "De la velocidad del viento en el laboratorio."
+        ],
+        correct: 1,
+        explanation: "Einstein demostró que la luz en su modelo corpuscular está cuantizada en fotones cuya energía individual es directamente proporcional a su frecuencia ($E = h \cdot f$)."
+      },
+      // 17 (P7 - Advanced)
+      {
+        id: 17,
+        progression: 7,
+        difficulty: "Avanzado",
+        stem: "A nivel macroscópico en el universo (movimiento de planetas y galaxias), ¿por qué domina la fuerza de gravedad sobre la eléctrica, a pesar de que la constante $k (9\times 10^9)$ es inmensamente mayor que $G (6.67\times 10^{-11})$?",
+        options: [
+          "Porque la fuerza de Coulomb desaparece en el espacio exterior.",
+          "Porque los grandes astros son eléctricamente neutros en su totalidad (igual cantidad de + y -) cancelando la fuerza eléctrica, mientras que las masas solo son positivas y sus efectos se suman.",
+          "Porque la constante $G$ aumenta cuando los objetos se alejan.",
+          "Porque los planetas flotan sobre capas de plomo."
+        ],
+        correct: 1,
+        explanation: "A escala astronómica, los cuerpos son neutros en promedio, por lo que las fuerzas eléctricas (+ y -) se cancelan. Sin embargo, la masa solo existe en valores positivos, así que la fuerza de gravedad se acumula y domina el cosmos."
+      },
+      // 18 (P8 - Advanced)
+      {
+        id: 18,
+        progression: 8,
+        difficulty: "Avanzado",
+        stem: "En la evolución histórica de los modelos científicos (como la misión Gravity Probe B), ¿cómo explicó Albert Einstein la interacción gravitatoria en la Relatividad General?",
+        options: [
+          "Como hilos invisibles de plomo que jalan a las manzanas.",
+          "Como la curvatura y deformación del tejido del espacio-tiempo producida por la presencia de masa y energía.",
+          "Como cargas electrostáticas flotando en el vacío puro.",
+          "Como un fenómeno que no se puede medir ni probar experimentalmente."
+        ],
+        correct: 1,
+        explanation: "Einstein revolucionó el modelo de Newton demostrando que la masa y la energía deforman la geometría del espacio-tiempo a su alrededor, guiando la trayectoria de planetas y luz."
+      },
+      // 19 (P9 - Medium - Visual)
+      {
+        id: 19,
+        progression: 9,
+        difficulty: "Medio",
+        svg: `<svg viewBox="0 0 320 90" style="width:100%; max-height:100px;"><rect x="40" y="30" width="100" height="30" fill="#1e293b" stroke="#475569" stroke-width="2" rx="4"/><g stroke="#06b6d4" stroke-width="2"><line x1="50" y1="45" x2="65" y2="45"/><polygon points="65,45 59,41 59,49" fill="#06b6d4"/><line x1="85" y1="45" x2="100" y2="45"/><polygon points="100,45 94,41 94,49" fill="#06b6d4"/><line x1="120" y1="45" x2="135" y2="45"/><polygon points="135,45 129,41 129,49" fill="#06b6d4"/></g><rect x="180" y="30" width="100" height="30" fill="#1e293b" stroke="#475569" stroke-width="2" rx="4"/><g stroke="#06b6d4" stroke-width="2"><line x1="190" y1="45" x2="205" y2="45"/><polygon points="205,45 199,41 199,49" fill="#06b6d4"/><line x1="225" y1="45" x2="240" y2="45"/><polygon points="240,45 234,41 234,49" fill="#06b6d4"/><line x1="260" y1="45" x2="275" y2="45"/><polygon points="275,45 269,41 269,49" fill="#06b6d4"/></g><text x="160" y="80" fill="#38bdf8" font-size="9" text-anchor="middle">Alineación de Dominios Magnéticos Microscópicos</text></svg>`,
+        stem: "¿Qué ocurre a nivel microscópico dentro de un trozo de hierro desordenado cuando se somete a un campo magnético externo para convertirse en un imán?",
+        options: [
+          "Los núcleos de hierro pierden todos sus neutrones.",
+          "Sus dominios magnéticos microscópicos (regiones con espines atómicos) se orientan y alinean en la misma dirección.",
+          "El hierro se derrite convirtiéndose en gas noble.",
+          "Se crean monopolos magnéticos aislados en la superficie."
+        ],
+        correct: 1,
+        explanation: "Un material ferromagnético se magnetiza cuando un campo externo alinea sus dominios magnéticos (pequeñas regiones atómicas imantadas) en una dirección común."
+      },
+      // 20 (P10 - Basic)
+      {
+        id: 20,
+        progression: 10,
+        difficulty: "Básico",
+        stem: "¿Cuál es la unidad oficial del Sistema Internacional (SI) para medir la intensidad del campo magnético y a cuántos Gauss ($G$) equivale?",
+        options: [
+          "El Tesla ($T$), donde $1\\text{ T} = 10,000\\text{ Gauss}$.",
+          "El Coulomb ($C$), donde $1\\text{ C} = 100\\text{ Gauss}$.",
+          "El Watt ($W$), donde $1\\text{ W} = 1,000\\text{ Gauss}$.",
+          "El Newton ($N$), donde $1\\text{ N} = 10\\text{ Gauss}$."
+        ],
+        correct: 0,
+        explanation: "La intensidad del campo magnético en el SI se mide en Teslas ($T$). En el sistema CGS se usaba el Gauss ($G$), siendo la relación $1\\text{ T} = 10,000\\text{ G}$."
+      },
+      // 21 (P6 - Basic)
+      {
+        id: 21,
+        progression: 6,
+        difficulty: "Básico",
+        stem: "¿Qué sucede cuando un lápiz se introduce parcialmente en un vaso con agua y parece estar 'doblarse' o 'romperse' en la superficie?",
+        options: [
+          "Reflexión total interna del vidrio.",
+          "Refracción de la luz al cambiar de velocidad al pasar del aire al agua.",
+          "Dispersión de rayos gamma.",
+          "Absorción fotoeléctrica de fotones."
+        ],
+        correct: 1,
+        explanation: "La refracción es el cambio de dirección y velocidad que experimenta una onda luminosa al pasar de un medio transparente a otro de distinta densidad óptica (del aire al agua)."
+      },
+      // 22 (P7 - Calc/Medium)
+      {
+        id: 22,
+        progression: 7,
+        difficulty: "Medio",
+        stem: "Calcula el peso ($P = m \cdot g$) de un astronauta de masa $m = 70\\text{ kg}$ en la superficie de la Luna, donde la aceleración de la gravedad es $g \\approx 1.62\\text{ m/s}^2$:",
+        options: [
+          "686.7 N",
+          "113.4 N",
+          "70.0 N",
+          "1134.0 N"
+        ],
+        correct: 1,
+        explanation: "El peso se calcula directamente multiplicando la masa por la gravedad local: $P = 70\\text{ kg} \times 1.62\\text{ m/s}^2 = 113.4\\text{ N}$."
+      },
+      // 23 (P8 - Basic)
+      {
+        id: 23,
+        progression: 8,
+        difficulty: "Básico",
+        stem: "¿En qué región de un solenoide (bobina de alambre enrollado con corriente) o de un capacitor la densidad de líneas de campo y la energía almacenada son MÁXIMAS?",
+        options: [
+          "En las esquinas exteriores muy lejanas del espacio.",
+          "En el interior concentrado del solenoide o entre las placas del capacitor.",
+          "En el interruptor de plástico apagado.",
+          "En el aislante de hule del cable exterior."
+        ],
+        correct: 1,
+        explanation: "En el interior de un solenoide o entre las placas paralelas de un capacitor, las líneas de campo se aprietan paralelamente, logrando la mayor densidad e intensidad de energía almacenada."
+      },
+      // 24 (P9 - Advanced)
+      {
+        id: 24,
+        progression: 9,
+        difficulty: "Avanzado",
+        stem: "¿Por qué el polo Norte marcado en la aguja imantada de una brújula apunta aproximadamente hacia el Norte geográfico de la Tierra?",
+        options: [
+          "Porque en el Norte geográfico de la Tierra se encuentra el polo Sur magnético (que atrae al polo Norte de la aguja).",
+          "Porque el viento polar empuja mecánicamente la aguja.",
+          "Porque el Sol ejerce una fuerza eléctrica pura sobre el hierro.",
+          "Porque la gravedad repele la punta sur de la brújula."
+        ],
+        correct: 0,
+        explanation: "Dado que polos opuestos se atraen ($N$ atrae a $S$), el polo Norte de la aguja se orienta hacia el Norte geográfico debido a que allí se ubica el polo Sur magnético terrestre."
+      },
+      // 25 (P10 - Medium)
+      {
+        id: 25,
+        progression: 10,
+        difficulty: "Medio",
+        stem: "A diferencia de las cargas puntuales (donde la fuerza varía con $1/r^2$), ¿cómo decae la intensidad del campo magnético $B$ respecto a la distancia $r$ alrededor de un alambre recto largo con corriente?",
+        options: [
+          "Es inversamente proporcional a la primera potencia de la distancia ($1/r$), dada la geometría cilíndrica ($B = \\frac{\\mu_0 I}{2\\pi r}$).",
+          "Es independiente de la distancia y nunca disminuye.",
+          "Decae como la distancia al cubo ($1/r^3$).",
+          "Depende de la temperatura del aire nicamente."
+        ],
+        correct: 0,
+        explanation: "Debido a la simetría cilíndrica de las líneas circulares alrededor de un alambre recto, la magnitud del campo magnético disminuye de manera inversamente proporcional a la distancia $r$ ($1/r$)."
+      },
+      // 26 (P6 - Advanced)
+      {
+        id: 26,
+        progression: 6,
+        difficulty: "Avanzado",
+        stem: "¿Qué demostró el experimento del tubo de rayos catódicos (tubo de Crooks) cuando el haz dentro del tubo se desviaba en presencia de un imán?",
+        options: [
+          "Que los rayos catódicos eran ondas de luz infrarroja pura.",
+          "Que los rayos estaban formados por un flujo de partículas cargadas negativamente con masa (electrones).",
+          "Que el cristal plomado emitía neutrones radioactivos.",
+          "Que la gravedad no afecta a los tubos de vacío."
+        ],
+        correct: 1,
+        explanation: "La desviación del haz catódico mediante campos electromagnéticos demostró que los rayos eran partículas con masa y carga negativa, descubriendo experimentalmente al electrón."
+      },
+      // 27 (P7 - Calc/Medium)
+      {
+        id: 27,
+        progression: 7,
+        difficulty: "Medio",
+        stem: "Calcula la fuerza electrostática de repulsión entre dos cargas $q_1 = 2\times 10^{-6}\\text{ C}$ y $q_2 = 2\times 10^{-6}\\text{ C}$ separadas $r = 0.06\\text{ m}$ ($k = 9\times 10^9\\text{ N}\cdot\text{m}^2/\text{C}^2$):",
+        options: [
+          "10.0 N",
+          "1.0 N",
+          "0.1 N",
+          "100.0 N"
+        ],
+        correct: 1,
+        explanation: "Aplicando $F = k \\frac{q_1 q_2}{r^2} = \\frac{(9\times 10^9)(2\times 10^{-6})(2\times 10^{-6})}{(0.06)^2} = \\frac{0.036}{0.0036} = 1.0\\text{ N}$."
+      },
+      // 28 (P8 - Medium)
+      {
+        id: 28,
+        progression: 8,
+        difficulty: "Medio",
+        stem: "¿Dónde se almacena la energía potencial electrostática en un capacitor antes de ser liberada en un circuito?",
+        options: [
+          "En el aire circundante fuera del aparato.",
+          "En la propia estructura del campo eléctrico uniforme formado en el espacio entre las placas.",
+          "En el plástico del interruptor.",
+          "La energía no se almacena, se crea al tocar el foco."
+        ],
+        correct: 1,
+        explanation: "El trabajo realizado para separar y acumular cargas opuestas en las placas del capacitor se almacena directamente en la energía del campo eléctrico que llena el espacio interior."
+      },
+      // 29 (P9 - Advanced)
+      {
+        id: 29,
+        progression: 9,
+        difficulty: "Avanzado",
+        stem: "Un electroimán industrial se construye enrollando un alambre con corriente (bobina) alrededor de un núcleo de hierro. ¿Por qué el núcleo de hierro aumenta drásticamente la fuerza del campo?",
+        options: [
+          "Porque el hierro añade cargas positivas extra al alambre.",
+          "Porque el campo magnético de la bobina alinea los dominios magnéticos del hierro, sumando su magnetización a la del solenoide.",
+          "Porque el hierro destruye la resistencia eléctrica de la batería.",
+          "Porque el núcleo filtra los fotones de luz visible."
+        ],
+        correct: 1,
+        explanation: "El hierro es un material ferromagnético. Al circular corriente por la bobina, su campo magnético alinea miles de millones de dominios en el núcleo de hierro, multiplicando intensamente el campo resultante."
+      },
+      // 30 (P10 - Advanced - Visual)
+      {
+        id: 30,
+        progression: 10,
+        difficulty: "Avanzado",
+        svg: `<svg viewBox="0 0 320 90" style="width:100%; max-height:100px;"><path d="M 100 10 Q 115 45 100 80" fill="none" stroke="#f59e0b" stroke-width="4"/><polygon points="100,10 92,20 108,20" fill="#f59e0b"/><text x="80" y="45" fill="#f59e0b" font-size="10" font-weight="bold">I₁ (↑)</text><path d="M 220 10 Q 205 45 220 80" fill="none" stroke="#f59e0b" stroke-width="4"/><polygon points="220,10 212,20 228,20" fill="#f59e0b"/><text x="240" y="45" fill="#f59e0b" font-size="10" font-weight="bold">I₂ (↑)</text><line x1="112" y1="45" x2="145" y2="45" stroke="#10b981" stroke-width="3"/><polygon points="145,45 137,40 137,50" fill="#10b981"/><line x1="208" y1="45" x2="175" y2="45" stroke="#10b981" stroke-width="3"/><polygon points="175,45 183,40 183,50" fill="#10b981"/><text x="160" y="88" fill="#10b981" font-size="9" font-weight="bold" text-anchor="middle">Atracción Mutua (Corrientes en el MISMO sentido)</text></svg>`,
+        stem: "En el diagrama superior, dos alambres conductores paralelos transportan corrientes eléctricas en el MISMO SENTIDO ($\u2191 \u2191$). ¿Qué efecto mecánico producen las fuerzas magnéticas entre ellos?",
+        options: [
+          "Una fuerza de ATRACCIÓN mutua que acerca ambos cables.",
+          "Una fuerza de REPULSIÓN mutua que los aleja.",
+          "Una fuerza de rotación que los hace girar como hélice.",
+          "Ninguna fuerza, permanecen inmóviles."
+        ],
+        correct: 0,
+        explanation: "Experimentos como los de Ampère demostraron que corrientes paralelas que circulan en la misma dirección se atraen ($\u2191 \u2191 \rightarrow \\text{Atracción}$), lo cual es análogo pero inverso a la regla de cargas electrostáticas."
+      }
+    ];
+
+    // --- APPLICATION STATE (SINGLE SOURCE OF TRUTH) ---
+    let state = {
+      user: { name: '', group: '' },
+      examStarted: false,
+      currentQuestion: 0, // 0 to 29
+      answers: new Array(30).fill(null), // null or option index 0..3
+      submitted: false,
+      finishedAt: null,
+      score: {
+        total: 0,
+        percentage: 0,
+        performance: '',
+        byProgression: { 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 }
+      }
+    };
+
+    const LOCAL_STORAGE_KEY = 'PROG6_10_EXAM_STATE_V2';
+
+    // Safe LocalStorage Saving
+    function saveStateToStorage() {
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        console.warn("LocalStorage error or restricted environment:", e);
+      }
+    }
+
+    // Safe LocalStorage Loading
+    function loadStateFromStorage() {
+      try {
+        const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.user && parsed.user.name) {
+            state = parsed;
+            return true;
+          }
+        }
+      } catch (e) {
+        console.warn("Error loading state from LocalStorage:", e);
+      }
+      return false;
+    }
+
+    // --- MAIN RENDER CONTROLLER ---
+    function renderApp() {
+      const container = document.getElementById('app-content');
+      const topBar = document.getElementById('top-bar');
+      const userTag = document.getElementById('user-display-tag');
+      const counterBadge = document.getElementById('counter-display-badge');
+      const progressFill = document.getElementById('progress-bar-fill');
+
+      if (!container) return;
+
+      // Manage Sticky Header
+      if (!state.examStarted || state.submitted) {
+        topBar.style.display = 'none';
+      } else {
+        topBar.style.display = 'flex';
+        userTag.textContent = `${state.user.name} (${state.user.group})`;
+        counterBadge.textContent = `PREGUNTA ${state.currentQuestion + 1} DE 30`;
+        const answeredCount = state.answers.filter(a => a !== null).length;
+        const percent = Math.min(100, Math.max(3, (answeredCount / 30) * 100));
+        progressFill.style.width = `${percent}%`;
+      }
+
+      // Render Screen
+      if (state.submitted) {
+        renderResultsScreen(container);
+      } else if (state.examStarted) {
+        renderQuestionScreen(container);
+      } else {
+        renderStartScreen(container);
+      }
+    }
+
+    // --- SCREEN 1: START / REGISTRATION ---
+    function renderStartScreen(container) {
+      container.innerHTML = `
+        <div class="card" style="text-align: center;">
+          <span class="card-header-badge" style="align-self: center;">LA ENERGÍA EN LOS PROCESOS DE LA VIDA DIARIA</span>
+          <h1 style="margin-top: 4px;">EXAMEN PARCIAL DE FÍSICA</h1>
+          <h2 style="font-size: 1.1rem; color: #f8fafc; font-weight: 800;">PROGRESIONES 6, 7, 8, 9 Y 10</h2>
+          
+          <div style="background: #090d16; border-left: 4px solid var(--accent-cyan); padding: 12px; text-align: left; border-radius: 8px;">
+            <p style="font-size: 0.88rem; color: var(--accent-cyan); font-weight: 800;">📋 Instrucciones Oficiales del Examen:</p>
+            <p style="font-size: 0.85rem; color: var(--text-main); margin-top: 4px;">
+              Este examen consta de <strong>30 reactivos de opción múltiple</strong> que evalúan los contenidos académicos de las Progresiones 6 a 10.
+            </p>
+            <ul style="font-size: 0.82rem; color: var(--text-muted); padding-left: 18px; margin-top: 6px; display: flex; flex-direction: column; gap: 4px;">
+              <li>Escribe tu Nombre Completo y Grupo para activar la prueba.</li>
+              <li>Puedes navegar libremente entre las 30 preguntas antes de entregar.</li>
+              <li>No se revelará si la respuesta es correcta durante el examen.</li>
+              <li><strong>No podrás entregar el examen si quedan preguntas sin responder.</strong></li>
+            </ul>
+          </div>
+
+          <form id="start-form" onsubmit="handleStartSubmit(event)" style="margin-top: 8px; display: flex; flex-direction: column; gap: 14px;">
+            <div class="input-group">
+              <label for="user-name">Nombre Completo del Estudiante *</label>
+              <input type="text" id="user-name" class="input-control" placeholder="Ej. Ana Lucía Domínguez" required value="${state.user.name}">
+            </div>
+
+            <div class="input-group">
+              <label for="user-group">Grupo *</label>
+              <input type="text" id="user-group" class="input-control" placeholder="Ej. 401-A" required value="${state.user.group}">
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 6px;">
+              🚀 INICIAR EXAMEN PARCIAL
+            </button>
+          </form>
+        </div>
+      `;
+    }
+
+    function handleStartSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('user-name').value.trim();
+      const group = document.getElementById('user-group').value.trim();
+
+      if (!name || !group) return;
+
+      state.user.name = name;
+      state.user.group = group;
+      state.examStarted = true;
+      saveStateToStorage();
+      renderApp();
+    }
+
+    // --- SCREEN 2: ACTIVE QUESTION SCREEN (ONE QUESTION AT A TIME) ---
+    function renderQuestionScreen(container) {
+      const qIdx = state.currentQuestion;
+      const q = MASTER_QUESTIONS[qIdx];
+      const selectedOpt = state.answers[qIdx];
+
+      container.innerHTML = `
+        <div class="card">
+          <!-- Question Navigator Grid (1..30) -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+            <span style="font-size: 0.8rem; font-weight: 800; color: var(--accent-cyan);">NAVEGACIÓN DE REACTIVOS:</span>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">${state.answers.filter(a => a !== null).length} / 30 Respondidas</span>
+          </div>
+
+          <div class="quiz-nav-grid">
+            ${MASTER_QUESTIONS.map((item, idx) => {
+              let cls = "quiz-nav-btn";
+              if (idx === qIdx) cls += " active";
+              if (state.answers[idx] !== null) cls += " answered";
+              return `<button class="${cls}" onclick="navigateToQuestion(${idx})">${idx + 1}</button>`;
+            }).join('')}
+          </div>
+
+          <!-- Main Question Box -->
+          <div style="background: #090d16; padding: 16px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 0.85rem; font-weight: 800; color: var(--accent-cyan);">REACTIVO ${qIdx + 1} DE 30</span>
+            </div>
+
+            ${q.svg ? `<div class="sim-canvas-box">${q.svg}</div>` : ''}
+
+            <p style="font-weight: 700; color: var(--text-main); font-size: 1rem; line-height: 1.45;">
+              ${q.stem}
+            </p>
+
+            <div class="options-stack">
+              ${q.options.map((opt, i) => {
+                const isSel = selectedOpt === i;
+                const letters = ["A", "B", "C", "D"];
+                return `
+                  <button class="option-btn ${isSel ? 'selected' : ''}" onclick="selectAnswer(${i})">
+                    <span class="option-letter">${letters[i]}</span>
+                    <span>${opt}</span>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Navigation Controls -->
+          <div style="display: flex; gap: 10px;">
+            <button class="btn btn-secondary" style="flex: 1;" ${qIdx === 0 ? 'disabled' : ''} onclick="navigateToQuestion(${qIdx - 1})">
+              ⬅️ ANTERIOR
+            </button>
+            <button class="btn btn-secondary" style="flex: 1;" ${qIdx === 29 ? 'disabled' : ''} onclick="navigateToQuestion(${qIdx + 1})">
+              SIGUIENTE ➡️
+            </button>
+          </div>
+
+          <!-- Deliver Button -->
+          <div style="margin-top: 8px;">
+            <button class="btn btn-primary" onclick="handleDeliverClick()">
+              🏁 ENTREGAR EXAMEN PARCIAL
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function navigateToQuestion(idx) {
+      if (idx < 0 || idx >= 30) return;
+      state.currentQuestion = idx;
+      saveStateToStorage();
+      renderApp();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function selectAnswer(optIdx) {
+      state.answers[state.currentQuestion] = optIdx;
+      saveStateToStorage();
+      renderApp();
+    }
+
+    function handleDeliverClick() {
+      // Check for unanswered questions
+      const missingIndexes = [];
+      state.answers.forEach((ans, idx) => {
+        if (ans === null) missingIndexes.push(idx + 1);
+      });
+
+      if (missingIndexes.length > 0) {
+        showMissingModal(missingIndexes);
+      } else {
+        showConfirmationModal();
+      }
+    }
+
+    function showMissingModal(missingArr) {
+      const overlay = document.createElement('div');
+      overlay.className = 'modal-overlay';
+      overlay.id = 'missing-modal-overlay';
+      overlay.innerHTML = `
+        <div class="modal-box">
+          <span style="font-size: 2.2rem;">⚠️</span>
+          <h2 style="color: var(--accent-amber); font-size: 1.15rem;">FALTAN PREGUNTAS POR RESPONDER</h2>
+          <p style="font-size: 0.9rem; color: var(--text-main);">
+            No puedes entregar el examen hasta completar los 30 reactivos.
+          </p>
+          <div style="background: #090d16; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px; font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700;">
+            Te faltan ${missingArr.length} pregunta(s):<br>
+            <span style="color: #fff; font-family: monospace; font-size: 0.95rem;">[ ${missingArr.join(', ')} ]</span>
+          </div>
+          <button class="btn btn-primary" onclick="closeModal('missing-modal-overlay')">
+            ENTENDIDO — IR A RESPONDER
+          </button>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+    }
+
+    function showConfirmationModal() {
+      const overlay = document.createElement('div');
+      overlay.className = 'modal-overlay';
+      overlay.id = 'confirm-modal-overlay';
+      overlay.innerHTML = `
+        <div class="modal-box">
+          <span style="font-size: 2.2rem;">📝</span>
+          <h2 style="color: var(--accent-cyan); font-size: 1.15rem;">¿ENTREGAR EXAMEN PARCIAL?</h2>
+          <p style="font-size: 0.9rem; color: var(--text-main);">
+            Has respondido las <strong>30 preguntas</strong>. Al entregar, tu examen será calificado inmediatamente y no podrás modificar tus respuestas.
+          </p>
+          <div style="display: flex; gap: 10px; margin-top: 6px;">
+            <button class="btn btn-secondary" style="flex: 1;" onclick="closeModal('confirm-modal-overlay')">
+              🔍 REVISAR
+            </button>
+            <button id="final-deliver-btn" class="btn btn-primary" style="flex: 1;" onclick="executeFinalGrading()">
+              ✅ ENTREGAR
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+    }
+
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    // --- GRADING ENGINE (EXECUTED ONCE) ---
+    function executeFinalGrading() {
+      const btn = document.getElementById('final-deliver-btn');
+      if (btn) btn.disabled = true;
+
+      closeModal('confirm-modal-overlay');
+
+      let totalScore = 0;
+      const progScores = { 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 };
+
+      MASTER_QUESTIONS.forEach((q, idx) => {
+        const userChoice = state.answers[idx];
+        if (userChoice === q.correct) {
+          totalScore++;
+          progScores[q.progression]++;
+        }
+      });
+
+      const percentage = Math.round((totalScore / 30) * 100);
+
+      let perfLabel = "";
+      if (percentage >= 90) perfLabel = "EXCELENTE";
+      else if (percentage >= 80) perfLabel = "MUY BUEN DESEMPEÑO";
+      else if (percentage >= 70) perfLabel = "BUEN DESEMPEÑO";
+      else if (percentage >= 60) perfLabel = "EN PROCESO";
+      else perfLabel = "REQUIERE REFORZAMIENTO";
+
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('es-MX', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      const timeStr = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+
+      state.score = {
+        total: totalScore,
+        percentage: percentage,
+        performance: perfLabel,
+        byProgression: progScores
+      };
+
+      state.finishedAt = `${dateStr} - ${timeStr}`;
+      state.submitted = true;
+
+      saveStateToStorage();
+      renderApp();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- SCREEN 3: EVIDENCE CARD & RESULTS VIEW ---
+    function renderResultsScreen(container) {
+      const s = state.score;
+      const prog = s.byProgression;
+
+      // Identify best & lowest progression
+      let maxP = 6, minP = 6;
+      let maxScore = -1, minScore = 99;
+
+      [6, 7, 8, 9, 10].forEach(pNum => {
+        if (prog[pNum] > maxScore) { maxScore = prog[pNum]; maxP = pNum; }
+        if (prog[pNum] < minScore) { minScore = prog[pNum]; minP = pNum; }
+      });
+
+      let perfClass = "badge-reinf";
+      if (s.percentage >= 90) perfClass = "badge-exc";
+      else if (s.percentage >= 80) perfClass = "badge-good";
+      else if (s.percentage >= 70) perfClass = "badge-good";
+      else if (s.percentage >= 60) perfClass = "badge-proc";
+
+      container.innerHTML = `
+        <!-- Screenshot Card -->
+        <div class="evidence-card">
+          <span class="card-header-badge" style="align-self: center;">✅ EVIDENCIA OFICIAL DE EVALUACIÓN</span>
+          <h2 style="color: #fff; font-size: 1.15rem; margin-bottom: 2px;">LA ENERGÍA EN LOS PROCESOS DE LA VIDA DIARIA</h2>
+          <p style="color: var(--accent-cyan); font-weight: 700; font-size: 0.85rem;">EXAMEN PARCIAL PROGRESIONES 6–10</p>
+
+          <div style="background-color: #090d16; border-radius: 12px; padding: 12px; border: 1px solid var(--border-color);">
+            <div style="font-size: 1.15rem; font-weight: 800; color: var(--text-main);">${state.user.name}</div>
+            <div style="font-size: 0.9rem; font-weight: 700; color: var(--accent-cyan);">GRUPO: ${state.user.group}</div>
+          </div>
+
+          <div class="score-large">${s.percentage}%</div>
+          <div style="font-weight: 800; font-size: 1.1rem; color: var(--text-main);">
+            PUNTAJE: ${s.total} / 30 ACIERTOS
+          </div>
+
+          <div class="badge-perf ${perfClass}">
+            ${s.performance}
+          </div>
+
+          <!-- Progression Breakdown Table / Bars -->
+          <div class="progression-bars-grid">
+            <span style="font-size: 0.78rem; font-weight: 800; color: var(--accent-cyan); text-transform: uppercase;">📊 DESGLOSE DE DOMINIO POR PROGRESIÓN:</span>
+            
+            ${[6, 7, 8, 9, 10].map(pNum => {
+              const val = prog[pNum];
+              const pctBar = (val / 6) * 100;
+              return `
+                <div class="prog-bar-row">
+                  <span style="width: 100px; font-weight: 700; color: #fff;">Progresión ${pNum}:</span>
+                  <div class="prog-bar-track">
+                    <div class="prog-bar-fill" style="width: ${pctBar}%;"></div>
+                  </div>
+                  <span style="font-weight: 800; color: var(--accent-cyan); font-family: monospace;">${val} / 6</span>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- Diagnostic Tags -->
+          <div style="display: flex; flex-direction: column; gap: 6px; text-align: left; background: #090d16; padding: 10px; border-radius: 10px; font-size: 0.82rem;">
+            <div style="color: #6ee7b7; font-weight: 700;">✅ MEJOR DOMINIO: Progresión ${maxP} (${maxScore}/6)</div>
+            <div style="color: #fbbf24; font-weight: 700;">📘 CONVIENE REPASAR: Progresión ${minP} (${minScore}/6)</div>
+          </div>
+
+          <table class="summary-table">
+            <tr><td>Estudiante:</td><td>${state.user.name}</td></tr>
+            <tr><td>Grupo:</td><td>${state.user.group}</td></tr>
+            <tr><td>Fecha y Hora:</td><td>${state.finishedAt}</td></tr>
+            <tr><td>Estatus:</td><td>✅ EXAMEN ENTREGADO Y CALIFICADO</td></tr>
+          </table>
+
+          <div class="camera-notice">
+            📸 TOMA UNA CAPTURA DE ESTA PANTALLA Y ENVÍALA A TU PROFESOR COMO EVIDENCIA.
+          </div>
+
+          <!-- Full Review Toggle Button -->
+          <div style="margin-top: 8px;">
+            <button class="btn btn-secondary" onclick="toggleReviewSection()">
+              🔍 REVISAR MIS RESPUESTAS (30 PREGUNTAS)
+            </button>
+            
+            <div id="review-container-box" style="display: none; flex-direction: column; gap: 12px; margin-top: 14px; text-align: left;">
+              ${MASTER_QUESTIONS.map((q, idx) => {
+                const userAns = state.answers[idx];
+                const isCorrect = userAns === q.correct;
+                return `
+                  <div style="background: #090d16; border: 1.5px solid ${isCorrect ? 'var(--success)' : 'var(--danger)'}; border-radius: 12px; padding: 12px; font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <span style="font-weight: 800; color: #fff;">${idx + 1}. ${isCorrect ? '✅ ACIERTO' : '❌ ERROR'}</span>
+                      <span style="font-size: 0.75rem; color: var(--accent-cyan); font-weight: 700;">PROGRESIÓN ${q.progression}</span>
+                    </div>
+
+                    <p style="color: var(--text-main); font-weight: 600; font-size: 0.9rem;">${q.stem}</p>
+
+                    <div style="color: ${isCorrect ? '#6ee7b7' : '#fca5a5'};">
+                      <strong>Tu respuesta:</strong> ${q.options[userAns]}
+                    </div>
+
+                    ${!isCorrect ? `
+                      <div style="color: #38bdf8; font-weight: 700;">
+                        <strong>Respuesta correcta:</strong> ${q.options[q.correct]}
+                      </div>
+                    ` : ''}
+
+                    <div style="color: var(--text-muted); font-size: 0.8rem; background: #111827; padding: 8px; border-radius: 8px; margin-top: 4px;">
+                      <strong>Explicación Científica:</strong> ${q.explanation}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleReviewSection() {
+      const box = document.getElementById('review-container-box');
+      if (box) {
+        box.style.display = (box.style.display === 'none') ? 'flex' : 'none';
+      }
+    }
+
+    // --- INITIALIZATION ON WINDOW LOAD ---
+    window.onload = function() {
+      loadStateFromStorage();
+      renderApp();
+    };
+  </script>
+</body>
+</html>
